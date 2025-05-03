@@ -1,4 +1,5 @@
 import streamlit as st
+import random
 
 st.title("Stellarluna: Interstellar Adventure")
 
@@ -12,6 +13,8 @@ if "fuel" not in st.session_state:
     st.session_state.fuel = 100
 if "health" not in st.session_state:
     st.session_state.health = 100
+if "alien_encounter" not in st.session_state:
+    st.session_state.alien_encounter = False
 
 # Display current status
 st.subheader("Status")
@@ -35,6 +38,10 @@ elif st.session_state.location == "Orbit":
         st.session_state.location = "Mars"
         st.session_state.fuel -= 50
         st.write("You are on your way to Mars! 🪐")
+    if st.button("Travel to Deep Space"):
+        st.session_state.location = "Deep Space"
+        st.session_state.fuel -= 70
+        st.write("You are venturing into the unknown depths of space! 🌌")
 elif st.session_state.location == "Moon":
     if st.button("Return to Earth"):
         st.session_state.location = "Earth"
@@ -48,6 +55,34 @@ elif st.session_state.location == "Mars":
         st.session_state.location = "Earth"
         st.session_state.fuel -= 50
         st.write("You have returned to Earth! 🌍")
+elif st.session_state.location == "Deep Space":
+    if not st.session_state.alien_encounter:
+        st.session_state.alien_encounter = random.choice([True, False])
+        if st.session_state.alien_encounter:
+            st.write("You encountered an alien spaceship! 🛸")
+        else:
+            st.write("You found a mysterious asteroid field. 🪨")
+    if st.session_state.alien_encounter:
+        if st.button("Communicate with Aliens"):
+            outcome = random.choice(["friendly", "hostile"])
+            if outcome == "friendly":
+                st.session_state.health += 20
+                st.write("The aliens are friendly and shared advanced technology with you! 🤝")
+            else:
+                st.session_state.health -= 30
+                st.write("The aliens are hostile and attacked your ship! ⚔️")
+        if st.button("Escape"):
+            st.session_state.location = "Orbit"
+            st.session_state.fuel -= 30
+            st.write("You escaped back to orbit! 🛡️")
+    else:
+        if st.button("Mine Resources"):
+            st.session_state.fuel += 20
+            st.write("You mined resources from the asteroid field and refueled your ship! ⛽")
+        if st.button("Return to Earth"):
+            st.session_state.location = "Earth"
+            st.session_state.fuel -= 70
+            st.write("You have returned to Earth! 🌍")
 
 # Check for game over
 if st.session_state.fuel <= 0:
