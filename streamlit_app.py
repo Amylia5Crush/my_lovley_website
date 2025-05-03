@@ -6,7 +6,7 @@ st.markdown(
     """
     <style>
     body {
-        background-image: url('https://source.unsplash.com/1600x900/?galaxy,space');
+        background-image: url('https://images.unsplash.com/photo-1464802686167-b939a6910659?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FsYXh5fGVufDB8fDB8fHww');
         background-size: cover;
         background-attachment: fixed;
         color: white;
