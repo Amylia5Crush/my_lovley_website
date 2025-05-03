@@ -1,6 +1,26 @@
 import streamlit as st
 import random
 
+# Inject custom CSS for the galaxy background
+st.markdown(
+    """
+    <style>
+    body {
+        background-image: url('https://source.unsplash.com/1600x900/?galaxy,space');
+        background-size: cover;
+        background-attachment: fixed;
+        color: white;
+    }
+    .stApp {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        padding: 10px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.title("Stellarluna: Interstellar Adventure")
 
 st.write("Welcome to the interstellar adventure game! 🚀")
@@ -41,7 +61,7 @@ elif st.session_state.location == "Orbit":
     if st.button("Travel to Deep Space"):
         st.session_state.location = "Deep Space"
         st.session_state.fuel -= 70
-        st.write("You are venturing into the unknown depths of space! 🌌")
+        st.write("You are exploring into the unknown depths of space! 🌌")
 elif st.session_state.location == "Moon":
     if st.button("Return to Earth"):
         st.session_state.location = "Earth"
@@ -51,6 +71,18 @@ elif st.session_state.location == "Mars":
     if st.button("Explore Mars"):
         st.session_state.health -= 10
         st.write("You explored Mars and discovered alien life! 👽")
+    if st.button("Communicate with Aliens"):
+        outcome = random.choice(["friendly", "hostile"])
+        if outcome == "friendly":
+            st.session_state.health += 20
+            st.write("The aliens are friendly and shared advanced technology with you! 🤝")
+        else:
+            st.session_state.health -= 30
+            st.write("The aliens are hostile and attacked your ship! ⚔️")
+    if st.button("Escape"):
+        st.session_state.location = "Orbit"
+        st.session_state.fuel -= 30
+        st.write("You escaped back to orbit! 🛡️")  
     if st.button("Return to Earth"):
         st.session_state.location = "Earth"
         st.session_state.fuel -= 50
